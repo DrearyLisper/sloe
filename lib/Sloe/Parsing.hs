@@ -45,10 +45,10 @@ parse line = if '=' `elem` line
                          else let (expression, rest) = parseExpression line
                               in (Right expression, rest)
 
-parseFile :: String -> ([Statement], Expression)
-parseFile c = parse' [] (map (fst.parse) $ lines c)
+parseFile :: String -> [([Statement], Expression)]
+parseFile c = parse' [] (map (fst.parse) $ filter (not.null) $  lines c)
   where
-    parse' :: [Statement] -> [Either Statement Expression] -> ([Statement], Expression)
+    parse' :: [Statement] -> [Either Statement Expression] -> [([Statement], Expression)]
     parse' statements ((Left statement):xs) = parse' (statement:statements) xs
-    parse' statements ((Right expression):xs) = (reverse statements, expression)
-    parse' statements [] = error "Should provide at least one expression"
+    parse' statements ((Right expression):xs) = (reverse statements, expression):parse' statements xs
+    parse' statements [] = []

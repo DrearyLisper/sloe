@@ -1,20 +1,36 @@
 id x = x
-first x y = x
-second x y = y
+
 true x y = x
 false x y = y
 or p q = p p q
 and p q = p q p
 not p = p false true
+
+
+null' x y = false
+null p = p null'
+
 if cond a b = cond a b
+
 0 f x = x
 1 f x = f x
+
 false' x = false
 iszero n = n false' true
+
 succ n f x = f (n f x)
+
+pred' f g h = h (g f)
+pred n f x = n (pred' f) (true x) id
+
+sub m n = n pred m
+
+eq? m n = iszero (sub m n)
+
 + m n f x = m f (n f x)
 2 = + 1 1
 3 = + 2 1
 4 = + 3 1
 5 = + 4 1
-+ 2 2
+
++ 0 1
