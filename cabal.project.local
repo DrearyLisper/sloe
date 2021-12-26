@@ -1,0 +1,6 @@
+ignore-project: False
+
+source-repository-package
+    type: git
+    location: git://github.com/DrearyLisper/lambda.git
+    tag: ccf206a89945cec1011c473965c05202aca5128a

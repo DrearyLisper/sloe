@@ -1,0 +1,17 @@
+cabal-version:      2.4
+name:               sloe
+version:            0.1.0.0
+author:             Dreary Lisper
+maintainer:         drearylisper@gmail.com
+
+executable sloe
+    main-is:          Main.hs
+    build-depends:    lambda, sloe, base ^>=4.14.3.0
+    hs-source-dirs:   src
+    default-language: Haskell2010
+
+library
+    exposed-modules:  Sloe.Parsing, Sloe.Compilation, Sloe.Types
+    build-depends:    lambda, containers, base ^>=4.14.3.0
+    hs-source-dirs:   lib
+    default-language: Haskell2010

@@ -1,0 +1,7 @@
+true x y = x
+false x y = y
+or p q = p p q
+and p q = p q p
+not p = p false true
+if cond a b = cond a b
+if (or true false) 1 2
