@@ -1,0 +1,17 @@
+true x y = x
+false x y = y
+
+pair x y f = f x y
+first p = p true
+second p = p false
+nil x = true
+
+null' x y = false
+null p = p null'
+
+list = (pair 0 (pair 1 nill))
+head = first
+tail = second
+
+(head list)
+(head (tail list))
