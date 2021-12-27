@@ -1,8 +1,8 @@
 [![Haskell CI](https://github.com/DrearyLisper/sloe/actions/workflows/haskell.yml/badge.svg)](https://github.com/DrearyLisper/sloe/actions/workflows/haskell.yml)
 
-# Sloe: Pure-functiononal language
+# Sloe: Purely functional language
 
-Sloe is a simple pure-functional language based on lambda-calculus. It uses [Lambda](https://github.com/DrearyLisper/lambda) as dependency for evaluation of Lambda-expressions.
+Sloe is a simple purely functional language based on lambda-calculus. It uses [Lambda](https://github.com/DrearyLisper/lambda) as dependency for evaluation of lambda-expressions.
 
 ## Examples
 
