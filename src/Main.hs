@@ -16,5 +16,4 @@ main = do
   let expressions = parseFile content
   forM_ expressions $ \(statements, expression) -> do
     let (db, lambda) = compile statements expression
-    putStrLn $ formatExpression lambda
     putStrLn $ formatExpression $ eval db lambda
