@@ -2,7 +2,7 @@
 
 # Sloe: Purely functional language
 
-Sloe is a simple purely functional language based on lambda-calculus. It uses [Lambda](https://github.com/DrearyLisper/lambda) as dependency for evaluation of lambda-expressions.
+Sloe is simple purely functional language based on lambda-calculus. It uses [Lambda](https://github.com/DrearyLisper/lambda) as dependency for evaluation of lambda-expressions.
 
 ## Examples
 
