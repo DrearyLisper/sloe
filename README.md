@@ -46,7 +46,6 @@ select 3 result
 select 4 result
 select 5 result
 select 6 result
-s
 ...
 ```
 
