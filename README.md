@@ -10,7 +10,9 @@ Sloe is a simple pure-functional language based on lambda-calculus. It uses [Lam
 
 For full source code see [recursion.sloe](https://github.com/DrearyLisper/sloe/blob/master/examples/recursion.sloe)
 
-```
+Source code:
+
+```haskell
 ...
 fact' r n = if (iszero n) 1 (mul n (r r (pred n)))
 fact n = fact' fact' n
@@ -18,7 +20,9 @@ fact n = fact' fact' n
 fact 4
 ```
 
-```
+Output:
+
+```haskell
 $ cabal run sloe examples/recursion.sloe
 Up to date
 \f.\x.(f (f (f (f (f (f (f (f (f (f (f (f (f (f (f (f (f (f (f (f (f (f (f (f x))))))))))))))))))))))))
@@ -28,7 +32,9 @@ Up to date
 
 For full source code see [fizzbuzz.sloe](https://github.com/DrearyLisper/sloe/blob/master/examples/fizzbuzz.sloe)
 
-```
+Source code:
+
+```haskell
 ...
 fizzbuzz n = if (and (iszero (mod n 3)) (iszero (mod n 5))) FizzBuzz (if (iszero (mod n 3)) Fizz (if (iszero (mod n 5)) Buzz n))
 
@@ -44,7 +50,9 @@ s
 ...
 ```
 
-``` 
+Output:
+
+```haskell
 $ cabal run sloe examples/fizzbuzz.sloe
 Up to date
 \f.\x.(f x)
