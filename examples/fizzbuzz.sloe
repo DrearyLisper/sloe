@@ -1,0 +1,96 @@
+id x = x
+
+true x y = x
+false x y = y
+or p q = p p q
+and p q = p q p
+not p = p false true
+
+if cond a b = cond a b
+
+0 f x = x
+1 f x = f x
+
+false' x = false
+iszero n = n false' true
+
+succ n f x = f (n f x)
+
+pred' f g h = h (g f)
+pred'' x u = x
+pred''' u = u
+
+pred n f x = n (pred' f) (pred'' x) pred'''
+
+sub m n = n pred m
+
+eq? m n = and (iszero (sub m n)) (iszero (sub n m))
+lt? m n = and (iszero (sub m n)) (not (iszero (sub n m)))
+
+add m n f x = m f (n f x)
+mul m n = m (add n) 0
+2 = succ 1
+3 = succ 2
+4 = succ 3
+5 = succ 4
+6 = succ 5
+7 = succ 6
+8 = succ 7
+9 = succ 8
+10 = succ 9
+11 = succ 10
+12 = succ 11
+13 = succ 12
+14 = succ 13
+15 = succ 14
+16 = succ 15
+17 = succ 16
+18 = succ 17
+19 = succ 18
+20 = succ 19
+
+pair x y f = f x y
+first p = p true
+second p = p false
+nil = false
+
+null' h t d = false
+null l = l null' true
+
+head = first
+tail = second
+
+select' r n l = if (null l) nil (if (iszero n) (head l) (r r (pred n) (tail l)))
+select n l = select' select' n l
+
+div' r a b = if (lt? a b) 0 (add 1 (r r (sub a b) b))
+div a b = div' div' a b
+
+range' r i n f = if (eq? i n) l (pair (f i) (r r (add i 1) n f))
+range i n = range' range' i n id
+rangef f i n = range' range' i n f
+
+mod a b = sub a (mul b (div a b))
+
+fizzbuzz n = if (and (iszero (mod n 3)) (iszero (mod n 5))) FizzBuzz (if (iszero (mod n 3)) Fizz (if (iszero (mod n 5)) Buzz n))
+
+result = rangef fizzbuzz 0 20
+
+select 1 result
+select 2 result
+select 3 result
+select 4 result
+select 5 result
+select 6 result
+select 7 result
+select 8 result
+select 9 result
+select 10 result
+select 11 result
+select 12 result
+select 13 result
+select 14 result
+select 15 result
+select 16 result
+select 17 result
+select 18 result
