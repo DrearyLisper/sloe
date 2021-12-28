@@ -47,7 +47,7 @@ select 3 p
 Output:
 
 ```haskell
-$ cabal run sloe examples/test.sloe
+$ cabal run sloe examples/primes.sloe
 Up to date
 \f.\x.(f (f x))
 \f.\x.(f (f (f x)))
