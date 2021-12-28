@@ -1,7 +1,15 @@
 module Sloe.Parsing (parseFile) where
 
 import Data.List
+import qualified Data.Map as Map
+
 import Sloe.Types
+import Sloe.Compilation
+
+import qualified Lambda.Parsing
+import qualified Lambda.Types
+
+
 
 parseNames :: String -> ([String], String)
 parseNames xs = (words names, rest)
@@ -45,10 +53,12 @@ parse line = if '=' `elem` line
                          else let (expression, rest) = parseExpression line
                               in (Right expression, rest)
 
-parseFile :: String -> [([Statement], Expression)]
-parseFile c = parse' [] (map (fst.parse) $ filter (not.null) $  lines c)
+
+
+parseFile :: String -> [(Map.Map String Lambda.Types.Expression, Lambda.Types.Expression)]
+parseFile c = parse' Map.empty (map (fst.parse) $ filter (not.null) $  lines c)
   where
-    parse' :: [Statement] -> [Either Statement Expression] -> [([Statement], Expression)]
-    parse' statements ((Left statement):xs) = parse' (statement:statements) xs
-    parse' statements ((Right expression):xs) = (reverse statements, expression):parse' statements xs
-    parse' statements [] = []
+    parse' :: Map.Map String Lambda.Types.Expression -> [Either Statement Expression] -> [(Map.Map String Lambda.Types.Expression, Lambda.Types.Expression)]
+    parse' db ((Left statement):xs) = parse' (compileStatement db statement) xs
+    parse' db ((Right expression):xs) = (db, fst $ Lambda.Parsing.parseExpression $ compileExpression expression):parse' db xs
+    parse' db [] = []

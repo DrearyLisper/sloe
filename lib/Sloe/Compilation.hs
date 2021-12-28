@@ -2,10 +2,10 @@ module Sloe.Compilation where
 
 import qualified Lambda.Types
 import qualified Lambda.Parsing
+import qualified Lambda.Evaluation
 
 import qualified Data.Map as Map
 
-import Sloe.Parsing
 import Sloe.Types
 
 compileExpression :: Expression -> String
@@ -15,10 +15,20 @@ compileExpression (Application name expressions) = wrap name $ reverse $ map com
     wrap prev [] = prev
     wrap prev (x:xs) = "(" ++ wrap prev xs ++ " " ++ x ++ ")"
 
+evalAndCompileExpression :: Map.Map String Lambda.Types.Expression -> Expression -> String
+evalAndCompileExpression m body = Lambda.Parsing.formatExpression $ Lambda.Evaluation.eval m $ fst $ Lambda.Parsing.parseExpression $ compileExpression body
+
+compileStatement :: Map.Map String Lambda.Types.Expression -> Statement -> Map.Map String Lambda.Types.Expression
+compileStatement db (Function funcName args body) = Map.insert funcName (fst (Lambda.Parsing.parseExpression (concatMap (\x -> "\\" ++ x ++ ".") args ++ strBody))) db
+  where
+    strBody = if null args
+                then evalAndCompileExpression db body
+                else compileExpression body
+
+
 compile :: [Statement] -> Expression -> (Map.Map String Lambda.Types.Expression, Lambda.Types.Expression)
 compile statements expression = compile' Map.empty statements
   where
     compile' :: Map.Map String Lambda.Types.Expression -> [Statement] -> (Map.Map String Lambda.Types.Expression, Lambda.Types.Expression)
-    compile' m [] = (m, fst $ Lambda.Parsing.parseExpression $ compileExpression expression)
-    compile' m ((Function funcName args body):xs) = compile' (Map.insert funcName (fst (Lambda.Parsing.parseExpression
-                           (concatMap (\x -> "\\" ++ x ++ ".") args ++ compileExpression body))) m) xs
+    compile' db [] = (db, fst $ Lambda.Parsing.parseExpression $ compileExpression expression)
+    compile' db (x:xs) = compile' (compileStatement db x) xs

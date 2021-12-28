@@ -14,6 +14,5 @@ main = do
   let filename = head args
   content <- readFile filename
   let expressions = parseFile content
-  forM_ expressions $ \(statements, expression) -> do
-    let (db, lambda) = compile statements expression
+  forM_ expressions $ \(db, lambda) -> do
     putStrLn $ formatExpression $ eval db lambda
