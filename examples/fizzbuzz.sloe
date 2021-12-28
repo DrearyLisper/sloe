@@ -66,7 +66,7 @@ select n l = select' select' n l
 div' r a b = if (lt? a b) 0 (add 1 (r r (sub a b) b))
 div a b = div' div' a b
 
-range' r i n f = if (eq? i n) l (pair (f i) (r r (add i 1) n f))
+range' r i n f = if (eq? i n) nil (pair (f i) (r r (add i 1) n f))
 range i n = range' range' i n id
 rangef f i n = range' range' i n f
 
