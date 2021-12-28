@@ -21,9 +21,7 @@ evalAndCompileExpression m body = Lambda.Parsing.formatExpression $ Lambda.Evalu
 compileStatement :: Map.Map String Lambda.Types.Expression -> Statement -> Map.Map String Lambda.Types.Expression
 compileStatement db (Function funcName args body) = Map.insert funcName (fst (Lambda.Parsing.parseExpression (concatMap (\x -> "\\" ++ x ++ ".") args ++ strBody))) db
   where
-    strBody = if null args
-                then evalAndCompileExpression db body
-                else compileExpression body
+    strBody = compileExpression body
 
 
 compile :: [Statement] -> Expression -> (Map.Map String Lambda.Types.Expression, Lambda.Types.Expression)
