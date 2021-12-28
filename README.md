@@ -28,6 +28,33 @@ Up to date
 \f.\x.(f (f (f (f (f (f (f (f (f (f (f (f (f (f (f (f (f (f (f (f (f (f (f (f x))))))))))))))))))))))))
 ```
 
+### Primes
+
+For full source code see [primes.sloe](https://github.com/DrearyLisper/sloe/blob/master/examples/primes.sloe)
+
+Source code:
+
+```haskell
+...
+p = primes list
+
+select 0 p
+select 1 p
+select 2 p
+select 3 p
+```
+
+Output:
+
+```haskell
+$ cabal run sloe examples/test.sloe
+Up to date
+\f.\x.(f (f x))
+\f.\x.(f (f (f x)))
+\f.\x.(f (f (f (f (f x)))))
+\f.\x.(f (f (f (f (f (f (f x)))))))
+```
+
 ### FizzBuzz
 
 For full source code see [fizzbuzz.sloe](https://github.com/DrearyLisper/sloe/blob/master/examples/fizzbuzz.sloe)
