@@ -15,9 +15,6 @@ compileExpression (Application name expressions) = wrap name $ reverse $ map com
     wrap prev [] = prev
     wrap prev (x:xs) = "(" ++ wrap prev xs ++ " " ++ x ++ ")"
 
-evalAndCompileExpression :: Map.Map String Lambda.Types.Expression -> Expression -> String
-evalAndCompileExpression m body = Lambda.Parsing.formatExpression $ Lambda.Evaluation.eval m $ fst $ Lambda.Parsing.parseExpression $ compileExpression body
-
 compileStatement :: Map.Map String Lambda.Types.Expression -> Statement -> Map.Map String Lambda.Types.Expression
 compileStatement db (Function funcName args body) = Map.insert funcName (fst (Lambda.Parsing.parseExpression (concatMap (\x -> "\\" ++ x ++ ".") args ++ strBody))) db
   where
