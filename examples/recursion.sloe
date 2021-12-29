@@ -8,9 +8,6 @@ not p = p false true
 
 if cond a b = cond a b
 
-0 f x = x
-1 f x = f x
-
 false' x = false
 iszero n = n false' true
 
@@ -28,13 +25,8 @@ eq? m n = iszero (sub m n)
 
 add m n f x = m f (n f x)
 mul m n = m (add n) 0
-2 = succ 1
-3 = succ 2
-4 = succ 3
-5 = succ 4
-6 = succ 5
 
-fact' r n = if (iszero n) 1 (mul n (r r (pred n)))
-fact n = fact' fact' n
+fact' r n i = if (iszero n) i (r r (pred n) (mul i n))
+fact n = fact' fact' n 1
 
-fact 4
+fact 5
