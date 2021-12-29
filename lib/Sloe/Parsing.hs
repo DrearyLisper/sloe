@@ -56,7 +56,7 @@ parse line = if '=' `elem` line
 
 
 parseFile :: String -> [(Map.Map String Lambda.Types.Expression, Lambda.Types.Expression)]
-parseFile c = parse' Map.empty (map (fst.parse) $ filter (not.null) $  lines c)
+parseFile c = parse' Map.empty (map (fst.parse) $ filter (not.("--" `isPrefixOf`)) $ filter (not.null) $  lines c)
   where
     parse' :: Map.Map String Lambda.Types.Expression -> [Either Statement Expression] -> [(Map.Map String Lambda.Types.Expression, Lambda.Types.Expression)]
     parse' db ((Left statement):xs) = parse' (compileStatement db statement) xs
