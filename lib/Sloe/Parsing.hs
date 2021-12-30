@@ -1,7 +1,7 @@
 module Sloe.Parsing (parseFile) where
 
 import Data.List
-import qualified Data.Map as Map
+import qualified Data.Map.Strict as Map
 
 import Sloe.Types
 import Sloe.Compilation
@@ -55,10 +55,10 @@ parse line = if '=' `elem` line
 
 
 
-parseFile :: String -> [(Map.Map String Lambda.Types.Expression, Lambda.Types.Expression)]
+parseFile :: String -> [(Lambda.Types.StepDB, Lambda.Types.Expression)]
 parseFile c = parse' Map.empty (map (fst.parse) $ filter (not.("--" `isPrefixOf`)) $ filter (not.null) $  lines c)
   where
-    parse' :: Map.Map String Lambda.Types.Expression -> [Either Statement Expression] -> [(Map.Map String Lambda.Types.Expression, Lambda.Types.Expression)]
+    parse' :: Lambda.Types.StepDB -> [Either Statement Expression] -> [(Lambda.Types.StepDB, Lambda.Types.Expression)]
     parse' db ((Left statement):xs) = parse' (compileStatement db statement) xs
     parse' db ((Right expression):xs) = (db, fst $ Lambda.Parsing.parseExpression $ compileExpression expression):parse' db xs
     parse' db [] = []
