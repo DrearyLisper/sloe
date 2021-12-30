@@ -6,6 +6,34 @@ Sloe is simple purely functional language based on lambda-calculus. It uses [Lam
 
 ## Examples
 
+### Binary Search Tree
+
+For full source code see [tree.sloe](https://github.com/DrearyLisper/sloe/blob/master/examples/tree.sloe)
+
+Source code:
+
+```haskell
+...
+result = tree-to-list (create-tree (pair 3 (pair 0 (pair 2 (pair 4 (pair 1 nil))))))
+select 0 result
+select 1 result
+select 2 result
+select 3 result
+select 4 result
+```
+
+Output:
+
+```haskell
+$ time cabal run sloe examples/tree.sloe
+Up to date
+\f.\x.x
+\f.\x.(f x)
+\f.\x.(f (f x))
+\f.\x.(f (f (f x)))
+\f.\x.(f (f (f (f x))))
+```
+
 ### Factorial
 
 For full source code see [recursion.sloe](https://github.com/DrearyLisper/sloe/blob/master/examples/recursion.sloe)

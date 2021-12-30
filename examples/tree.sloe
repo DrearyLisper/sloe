@@ -1,0 +1,74 @@
+id x = x
+
+true x y = x
+false x y = y
+or p q = p p q
+and p q = p q p
+not p = p false true
+
+if cond a b = cond a b
+
+0 f x = x
+1 f x = f x
+
+false' x = false
+iszero n = n false' true
+
+succ n f x = f (n f x)
+
+pred' f g h = h (g f)
+pred'' x u = x
+pred''' u = u
+
+pred n f x = n (pred' f) (pred'' x) pred'''
+
+sub m n = n pred m
+
+eq? m n = and (iszero (sub m n)) (iszero (sub n m))
+lt? m n = and (iszero (sub m n)) (not (iszero (sub n m)))
+
+add m n f x = m f (n f x)
+mul m n = m (add n) 0
+
+pair x y f = f x y
+first p = p true
+second p = p false
+nil x = true
+
+null' x y = false
+null p = p null'
+
+eq? m n = and (iszero (sub m n)) (iszero (sub n m))
+lt? m n = and (iszero (sub m n)) (not (iszero (sub n m)))
+
+value node = (first node)
+left node = (first (second node))
+right node = (second (second node))
+
+range' r i n f = if (eq? i n) nil (pair (f i) (r r (add i 1) n f))
+range i n = range' range' i n id
+
+new-node x l r = (pair x (pair l r))
+new-tree = nil
+
+insert-node' r tree node = if (null tree) node (if (lt? (value node) (value tree)) (new-node (value tree) (r r (left tree) node) (right tree)) (new-node (value tree) (left tree) (r r (right tree) node)))
+insert-node tree node = insert-node' insert-node' tree node
+
+create-tree' r tree l = if (null l) tree (r r (insert-node tree (new-node (first l) nil nil)) (second l))
+create-tree l = create-tree' create-tree' new-tree l
+
+concat' r l1 l2 = if (null l1) l2 (pair (first l1) (r r (second l1) l2))
+concat l1 l2= concat' concat' l1 l2
+
+select' r n l = if (null l) nil (if (iszero n) (first l) (r r (pred n) (second l)))
+select n l = select' select' n l
+
+tree-to-list' r tree = if (null tree) nil (concat (r r (left tree)) (pair (value tree) (r r (right tree))))
+tree-to-list tree = tree-to-list' tree-to-list' tree
+
+result = tree-to-list (create-tree (pair 3 (pair 0 (pair 2 (pair 4 (pair 1 nil))))))
+select 0 result
+select 1 result
+select 2 result
+select 3 result
+select 4 result
