@@ -3,4 +3,4 @@ ignore-project: False
 source-repository-package
     type: git
     location: git://github.com/DrearyLisper/lambda.git
-    tag: 68ab9ba21a724906bc5eeac3afeadaa161fcb5a9
+    tag: f95f5ba62ce8cd0e3cccbecd1024ecd16b804bd0
